@@ -1,30 +1,22 @@
 import React, {Component} from 'react';
-import store from '../store';
+import { connect } from 'react-redux'
 import Sidebar from '../components/Sidebar';
 
-class SidebarContainer extends Component {
-
-  constructor() {
-    super();
-    this.state = store.getState().playlists;
+function mapStateToProps(state){
+  return {
+    playlists: state.playlists.list
   }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState().playlists);
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    return (
-      <Sidebar playlists={this.state.list}/>
-    );
-  }
-
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  }
+}
+
+const SidebarContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sidebar);
 
 export default SidebarContainer;
